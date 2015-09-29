@@ -4,28 +4,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Client;
+using SignalRSelfHost;
 
 namespace ClientConsole
 {
     class Program
     {
+        public static RoomPresence testObject;
+
         static void Main(string[] args)
         {
+            testObject = new RoomPresence("sensor1", "room2", DateTime.Now);
+            StartHub();
 
         }
 
-        public async void StartHub()
+        public static async void StartHub()
         {
-            var connection = new HubConnection("http://localhost:8080");
-            IHubProxy ServerHub = connection.CreateHubProxy("ServerHub");
+            // Establishing connection, creating hub proxy and defining method that server can call.
+            var hubConnection = new HubConnection("http://localhost:8080");
+            IHubProxy serverHubProxy = hubConnection.CreateHubProxy("ServerHub");
+            serverHubProxy.On<RoomPresence>("broadcast", roomPresence => Console.WriteLine(roomPresence.sensor, roomPresence.room, roomPresence.timeStamp));
+            await hubConnection.Start();
+            hubConnection.Error += ex => Console.WriteLine("SignalR error: {0}", ex.Message);
 
-
+            // Invoking method on server
+            await serverHubProxy.Invoke("broadcastPositions", testObject);
 
         }
 
-        public void showPositions(string sensor, string room, DateTime timeStamp)
-        {
-            // TODO: Implement the method for showing received info
-        }
+        //public void broadcast(RoomPresence rp)
+        //{
+        //    // TODO: Implement the method for showing received info
+        //    Console.Write(rp.sensor, rp.room, rp.timeStamp);
+        //}
     }
 }

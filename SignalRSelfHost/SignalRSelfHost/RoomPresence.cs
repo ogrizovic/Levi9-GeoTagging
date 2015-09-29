@@ -12,5 +12,11 @@ namespace SignalRSelfHost
         public string room { get; set; }
         public DateTime timeStamp { get; set; }
 
+        public RoomPresence(string sensor, string room, DateTime timeStamp)
+        {
+            this.sensor = sensor;
+            this.sensor = room;
+            this.timeStamp = timeStamp;
+        }
     }
 }

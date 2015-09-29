@@ -23,7 +23,9 @@ namespace SignalRSelfHost
             {
                 Console.WriteLine("Server running on {0}", url);
                 Console.ReadLine();
+                
             }
+
         }
     }
 }

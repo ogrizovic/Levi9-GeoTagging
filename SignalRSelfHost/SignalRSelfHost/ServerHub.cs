@@ -12,15 +12,16 @@ namespace SignalRSelfHost
     public class ServerHub : Hub
     {
 
-        // Method that is going to broadcast positions of sensors to every sensor. Subscription not implemented yet.
-        public void broadcastPositions(string sensor, string room, DateTime timeStamp)
+        // Method that is invoked from client
+        public void broadcastPositions(RoomPresence roomPresence)
         {
-            Clients.All.showPositions(sensor, room, timeStamp);
+            // Calling client method
+            Clients.All.broadcast(roomPresence);
         }
 
-        public Task<IEnumerable<RoomPresence>> getAllPositions()
-        {
+        //public Task<IEnumerable<RoomPresence>> getAllPositions()
+        //{
             
-        }
+        //}
     }
 }
