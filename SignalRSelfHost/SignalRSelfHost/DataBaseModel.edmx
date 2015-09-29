@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="DataBaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="DataBaseModelTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataBaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DataBaseModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Sensors" EntityType="DataBaseModel.Sensor" />
+          <EntitySet Name="Rooms" EntityType="DataBaseModel.Room" />
+          <EntitySet Name="RoomPresences" EntityType="DataBaseModel.RoomPresence" />
+        </EntityContainer>
+        <EntityType Name="Sensor">
+          <Key>
+            <PropertyRef Name="sensorId" />
+          </Key>
+          <Property Name="sensorId" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="sensormac" Type="String" Nullable="false" DefaultValue="N/A" MaxLength="50" />
+          <Property Name="fullName" Type="String" Nullable="false" DefaultValue="N/A" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="roomId" />
+          </Key>
+          <Property Name="roomId" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="name" Type="String" Nullable="false" DefaultValue="N/A" MaxLength="50" />
+          <Property Name="level" Type="Int32" Nullable="false" DefaultValue="-1" />
+          <Property Name="ssId" Type="String" Nullable="false" DefaultValue="levi9" MaxLength="20" />
+          <Property Name="ssIdmap" Type="String" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RoomPresence">
+          <Key>
+            <PropertyRef Name="timeSampled" />
+            <PropertyRef Name="roomId" />
+            <PropertyRef Name="sensorId" />
+          </Key>
+          <Property Name="timeSampled" Type="DateTime" Nullable="false" />
+          <Property Name="roomId" Type="String" Nullable="false" />
+          <Property Name="sensorId" Type="String" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="DataBaseModel" />
+        <Alias Key="Target" Value="DataBaseModel.Store" />
+        <EntityContainerMapping CdmEntityContainer="DataBaseModelContainer" StorageEntityContainer="DataBaseModelTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
