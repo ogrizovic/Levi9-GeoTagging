@@ -12,6 +12,8 @@ namespace SignalRSelfHost
 {
     class Program
     {
+        public static RoomPresence rp = new RoomPresence("senzor1", "soba1", DateTime.Now);
+        public static ServerHub hub = new ServerHub();
         static void Main(string[] args)
         {
             // This will *ONLY* bind to localhost, if you want to bind to all addresses
@@ -22,10 +24,13 @@ namespace SignalRSelfHost
             using (WebApp.Start(url))
             {
                 Console.WriteLine("Server running on {0}", url);
+                //Console.ReadLine();
+                //hub.broadcastPositions(rp);
                 Console.ReadLine();
-                
+
             }
 
         }
+
     }
 }

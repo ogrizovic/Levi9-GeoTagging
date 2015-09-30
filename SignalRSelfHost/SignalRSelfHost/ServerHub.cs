@@ -15,8 +15,9 @@ namespace SignalRSelfHost
         // Method that is invoked from client
         public void broadcastPositions(RoomPresence roomPresence)
         {
+            var context = GlobalHost.ConnectionManager.GetHubContext<ServerHub>();
             // Calling client method
-            Clients.All.broadcast(roomPresence);
+            context.Clients.All.broadcast(roomPresence);
         }
 
         //public Task<IEnumerable<RoomPresence>> getAllPositions()
