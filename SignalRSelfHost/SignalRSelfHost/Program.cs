@@ -12,7 +12,7 @@ namespace SignalRSelfHost
 {
     class Program
     {
-        public static RoomPresence rp = new RoomPresence("senzor1", "soba1", DateTime.Now);
+        
         public static ServerHub hub = new ServerHub();
         static void Main(string[] args)
         {
@@ -20,12 +20,10 @@ namespace SignalRSelfHost
             // use http://*:8080 to bind to all addresses. 
             // See http://msdn.microsoft.com/en-us/library/system.net.httplistener.aspx 
             // for more information.
-            string url = "http://localhost:8080";
+            string url = "http://10.1.1.53:8080";
             using (WebApp.Start(url))
             {
                 Console.WriteLine("Server running on {0}", url);
-                //Console.ReadLine();
-                //hub.broadcastPositions(rp);
                 Console.ReadLine();
 
             }

@@ -19,10 +19,5 @@ namespace SignalRSelfHost
             // Calling client method
             context.Clients.All.broadcast(roomPresence);
         }
-
-        //public Task<IEnumerable<RoomPresence>> getAllPositions()
-        //{
-            
-        //}
     }
 }
