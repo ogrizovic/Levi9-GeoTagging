@@ -3,9 +3,9 @@ using Microsoft.AspNet.SignalR.Hubs;
 using System.Collections.Generic;
 using Repository.Interfaces;
 using Repository.Repositories;
-using Utilities;
 using Repository.DTOs;
 using Repository.Extensions;
+using UtilitiesPortable;
 
 namespace SignalRSelfHost
 {
@@ -19,7 +19,7 @@ namespace SignalRSelfHost
         public void RecordLocation(PresenceDto presence, SensorDto sensor)
         {
             presenceRepository.CreateSensorPresence(presence.Convert(), sensor.Convert());
-        }
+        }   
 
         public IEnumerable<SensorDto> GetAllRegisteredClients()
         {
