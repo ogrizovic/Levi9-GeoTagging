@@ -1,4 +1,4 @@
-﻿namespace Utilities.SharedModels
+﻿namespace UtilitiesPortable.SharedModels
 {
     public class Room
     {

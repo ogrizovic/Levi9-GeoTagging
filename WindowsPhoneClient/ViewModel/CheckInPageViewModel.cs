@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using WindowsPhoneClient.Models;
+using UtilitiesPortable.SharedModels;
 
 namespace WindowsPhoneClient.ViewModel
 {
-    public class CheckInPageViewModel : ViewModelBase
+    public class CheckInPageViewModel : ViewModelBaseWinPhone
     {
         public CheckInPageViewModel()
         {

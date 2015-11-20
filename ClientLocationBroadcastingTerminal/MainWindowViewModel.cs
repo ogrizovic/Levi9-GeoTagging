@@ -1,21 +1,19 @@
-﻿using ClientLocationBroadcastingTerminal.Commands;
-using Microsoft.AspNet.SignalR.Client;
+﻿using Microsoft.AspNet.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using ClientLocationBroadcastingTerminal.Extensions;
-using Repository.Interfaces;
-using Utilities;
-using Utilities.SharedModels;
-using System.Threading.Tasks;
+using UtilitiesPortable.CommonExtensions;
+using UtilitiesPortable;
+using UtilitiesPortable.SharedModels;
+using UtilitiesPortable.SharedCommands;
+using UtilitiesPortable.SharedTypes;
 
 namespace ClientLocationBroadcastingTerminal
 {
-    public class MainWindowViewModel : BaseViewModel
+    public class MainWindowViewModel : ViewModelBase
     {
 
         #region fields

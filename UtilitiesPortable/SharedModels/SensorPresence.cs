@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Utilities.SharedModels
+namespace UtilitiesPortable.SharedModels
 {
     public class SensorPresence
     {

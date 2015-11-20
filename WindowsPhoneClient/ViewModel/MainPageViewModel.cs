@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using UtilitiesPortable.SharedCommands;
+using UtilitiesPortable.SharedModels;
 using Windows.Data.Json;
 using Windows.UI.Popups;
-using WindowsPhoneClient.Commands;
-using WindowsPhoneClient.Models;
+using WindowsPhoneClient.ViewModel;
 
 namespace WindowsPhoneClient
 {
-    public class MainPageViewModel : ViewModelBase
+    public class MainPageViewModel : ViewModelBaseWinPhone
     {
         private List<Sensor> oldSensors;
 

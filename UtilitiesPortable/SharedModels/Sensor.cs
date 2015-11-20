@@ -1,4 +1,4 @@
-﻿namespace Utilities.SharedModels
+﻿namespace UtilitiesPortable.SharedModels
 {
     public class Sensor
     {
@@ -12,6 +12,8 @@
             {
                 return FirstName + " " + LastName;
             }
+
+            set { }
         }
     }
 }
