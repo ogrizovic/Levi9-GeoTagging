@@ -15,10 +15,16 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox Text="{Binding FirstName}" IsEnabled="False" Grid.Row="0"/>
-        <TextBox Text="{Binding LastName}" IsEnabled="False" Grid.Row="1"/>
-        <ComboBox ItemsSource="{Binding Rooms, Mode=TwoWay}" SelectedItem="{Binding SelectedRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" Grid.Row="2" PlaceholderText="Select a room.."/>
-        <Button Grid.Row="3" Content="Check In" Command="{Binding CheckInCommand}" CommandParameter="{Binding SelectedRoom.RoomId}" />
+        <TextBox IsEnabled="False" Text="Input your first name:" Grid.Row="0"/>
+        <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1"/>
+        <TextBox IsEnabled="False" Text="Input your last name:" Grid.Row="2" />
+        <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3"/>
+        <ComboBox ItemsSource="{Binding Rooms, Mode=TwoWay}" SelectedItem="{Binding SelectedRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" Grid.Row="4" PlaceholderText="Select a room.."/>
+        <Button Grid.Row="5" Content="Check In" Command="{Binding CheckInCommand}" CommandParameter="{Binding SelectedRoom.RoomId}"/>
+        <Button Grid.Row="6" Content="Back..." Command="{Binding BackCommand}"/>
     </Grid>
 </Page>
