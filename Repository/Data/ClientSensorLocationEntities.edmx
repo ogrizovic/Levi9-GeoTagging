@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ClientSensorLocationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="roomId" />
+          </Key>
+          <Property Name="roomId" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="level" Type="int" Nullable="false" />
+          <Property Name="ssid" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ssidmac" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sensor">
+          <Key>
+            <PropertyRef Name="sensorId" />
+          </Key>
+          <Property Name="sensorId" Type="int" Nullable="false" />
+          <Property Name="sensorMac" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SensorPresence">
+          <Key>
+            <PropertyRef Name="sensorId" />
+          </Key>
+          <Property Name="roomId" Type="int" Nullable="false" />
+          <Property Name="sensorId" Type="int" Nullable="false" />
+          <Property Name="timeSample" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="SensorPresence" Type="Self.SensorPresence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="roomId" />
+            </Principal>
+            <Dependent Role="SensorPresence">
+              <PropertyRef Name="roomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sensor">
+          <End Role="Sensor" Type="Self.Sensor" Multiplicity="1" />
+          <End Role="SensorPresence" Type="Self.SensorPresence" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Sensor">
+              <PropertyRef Name="sensorId" />
+            </Principal>
+            <Dependent Role="SensorPresence">
+              <PropertyRef Name="sensorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClientSensorLocationModelStoreContainer">
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sensor" EntityType="Self.Sensor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SensorPresence" EntityType="Self.SensorPresence" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_room" Association="Self.fk_room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="SensorPresence" EntitySet="SensorPresence" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sensor" Association="Self.fk_sensor">
+            <End Role="Sensor" EntitySet="Sensor" />
+            <End Role="SensorPresence" EntitySet="SensorPresence" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClientSensorLocationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="roomId" />
+          </Key>
+          <Property Name="roomId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="level" Type="Int32" Nullable="false" />
+          <Property Name="ssid" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ssidmac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SensorPresences" Relationship="Self.fk_room" FromRole="Room" ToRole="SensorPresence" />
+        </EntityType>
+        <EntityType Name="Sensor">
+          <Key>
+            <PropertyRef Name="sensorId" />
+          </Key>
+          <Property Name="sensorId" Type="Int32" Nullable="false" />
+          <Property Name="sensorMac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SensorPresence" Relationship="Self.fk_sensor" FromRole="Sensor" ToRole="SensorPresence" />
+        </EntityType>
+        <EntityType Name="SensorPresence">
+          <Key>
+            <PropertyRef Name="sensorId" />
+          </Key>
+          <Property Name="roomId" Type="Int32" Nullable="false" />
+          <Property Name="sensorId" Type="Int32" Nullable="false" />
+          <Property Name="timeSample" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Room" Relationship="Self.fk_room" FromRole="SensorPresence" ToRole="Room" />
+          <NavigationProperty Name="Sensor" Relationship="Self.fk_sensor" FromRole="SensorPresence" ToRole="Sensor" />
+        </EntityType>
+        <Association Name="fk_room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="SensorPresence" Type="Self.SensorPresence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="roomId" />
+            </Principal>
+            <Dependent Role="SensorPresence">
+              <PropertyRef Name="roomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sensor">
+          <End Role="Sensor" Type="Self.Sensor" Multiplicity="1" />
+          <End Role="SensorPresence" Type="Self.SensorPresence" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Sensor">
+              <PropertyRef Name="sensorId" />
+            </Principal>
+            <Dependent Role="SensorPresence">
+              <PropertyRef Name="sensorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClientSensorLocationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="Sensors" EntityType="Self.Sensor" />
+          <EntitySet Name="SensorPresences" EntityType="Self.SensorPresence" />
+          <AssociationSet Name="fk_room" Association="Self.fk_room">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="SensorPresence" EntitySet="SensorPresences" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sensor" Association="Self.fk_sensor">
+            <End Role="Sensor" EntitySet="Sensors" />
+            <End Role="SensorPresence" EntitySet="SensorPresences" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClientSensorLocationModelStoreContainer" CdmEntityContainer="ClientSensorLocationEntities">
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="ClientSensorLocationModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="roomId" ColumnName="roomId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="ssid" ColumnName="ssid" />
+                <ScalarProperty Name="ssidmac" ColumnName="ssidmac" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sensors">
+            <EntityTypeMapping TypeName="ClientSensorLocationModel.Sensor">
+              <MappingFragment StoreEntitySet="Sensor">
+                <ScalarProperty Name="sensorId" ColumnName="sensorId" />
+                <ScalarProperty Name="sensorMac" ColumnName="sensorMac" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SensorPresences">
+            <EntityTypeMapping TypeName="ClientSensorLocationModel.SensorPresence">
+              <MappingFragment StoreEntitySet="SensorPresence">
+                <ScalarProperty Name="roomId" ColumnName="roomId" />
+                <ScalarProperty Name="sensorId" ColumnName="sensorId" />
+                <ScalarProperty Name="timeSample" ColumnName="timeSample" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
