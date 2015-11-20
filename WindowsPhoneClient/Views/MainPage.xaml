@@ -14,8 +14,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="50" />
             <RowDefinition Height="Auto" MaxHeight="200"/>
-            <RowDefinition Height="Auto" MinHeight="100" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="*" MinHeight="100" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" MinHeight="100" />
             <RowDefinition Height="Auto" MinHeight="100" />
         </Grid.RowDefinitions>
@@ -30,6 +30,5 @@
         <Button Grid.Row="3" Content="Get location" Command="{Binding GetSensorLocationCommand}" CommandParameter="{Binding SelectedSensor}"></Button>
         <TextBox IsEnabled="False" Grid.Row="4" Text="{Binding SensorLocation}" Width="Auto" TextWrapping="Wrap"/>
         <Button Grid.Row="5" Content="Check in" Command="{Binding CheckInCommand}" />
-
     </Grid>
 </Page>

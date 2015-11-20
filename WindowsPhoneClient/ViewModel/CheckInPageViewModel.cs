@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using UtilitiesPortable.SharedModels;
+using Windows.ApplicationModel.Contacts;
+using Windows.System.UserProfile;
+using Windows.UI.Popups;
 
 namespace WindowsPhoneClient.ViewModel
 {
@@ -12,9 +14,21 @@ namespace WindowsPhoneClient.ViewModel
         public CheckInPageViewModel()
         {
             CheckInCommand = new RelayCommand<int>(CheckIn);
-            FirstName = "Zoran";
-            LastName = "Lisovac";
+            BackCommand = new RelayCommand(NavBack);
+            //GetUsersName();
             Rooms = GetRooms();
+        }
+
+        private void NavBack()
+        {
+            navigationService.NavigateTo("checkedInList");
+        }
+
+        private async void GetUsersName()
+        {
+            // TODO: Find the way to get the currently logged user's first and last name
+            FirstName = await UserInformation.GetFirstNameAsync();
+            LastName = await UserInformation.GetLastNameAsync();
         }
 
         private ObservableCollection<Room> GetRooms()
@@ -26,12 +40,19 @@ namespace WindowsPhoneClient.ViewModel
 
         private async void CheckIn(int roomId)
         {
+            if (string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName) || SelectedRoom == null)
+            {
+                MessageDialog dialog = new MessageDialog("You must enter first and last name and select a room", "Error");
+                await dialog.ShowAsync();
+                return;
+            }
+
             var sensor = new Sensor
             {
-                FirstName = "Zoran",
-                LastName = "Lisovac",
+                FirstName = FirstName,
+                LastName = LastName,
                 SensorId = 5,
-                SensorMac = "mac5"
+                SensorMac = "1"
             };
 
             var presence = new SensorPresence
@@ -45,7 +66,7 @@ namespace WindowsPhoneClient.ViewModel
             navigationService.NavigateTo("checkedInList");
         }
 
-        private string firstName;
+        private string firstName = string.Empty;
         public string FirstName
         {
             get
@@ -58,7 +79,7 @@ namespace WindowsPhoneClient.ViewModel
             }
         }
 
-        private string lastName;
+        private string lastName = string.Empty;
         public string LastName
         {
             get
@@ -89,5 +110,6 @@ namespace WindowsPhoneClient.ViewModel
         }
 
         public RelayCommand<int> CheckInCommand { get; private set; }
+        public RelayCommand BackCommand { get; private set; }
     }
 }

@@ -44,7 +44,6 @@ namespace WindowsPhoneClient
             }
 
             Sensors = new ObservableCollection<Sensor>(clientSensors);
-            //oldSensors = new List<Sensor>(sensors);
         }
 
         private void GetSensorLocation(Sensor sensor)
@@ -102,30 +101,5 @@ namespace WindowsPhoneClient
 
         public RelayCommand<Sensor> GetSensorLocationCommand { get; private set; }
         public RelayCommand CheckInCommand { get; private set; }
-
-        #region commented-out
-
-        //private void SearchFilter(string searchCriteria)
-        //{
-        //    if (string.IsNullOrWhiteSpace(searchCriteria))
-        //    {
-        //        Sensors = new ObservableCollection<Sensor>(oldSensors);
-        //        return;
-        //    }
-
-        //    searchCriteria = searchCriteria.Trim();
-        //    var sensors = new List<Sensor>();
-
-        //    foreach (var client in oldSensors)
-        //    {
-        //        if (client.FullName.Contains(searchCriteria, StringComparison.CurrentCultureIgnoreCase))
-        //        {
-        //            sensors.Add(client);
-        //        }
-        //    }
-
-        //    Sensors = new ObservableCollection<Sensor>(sensors);
-        //}
-        #endregion
     }
 }
