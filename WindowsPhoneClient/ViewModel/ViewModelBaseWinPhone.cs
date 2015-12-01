@@ -15,7 +15,7 @@ namespace WindowsPhoneClient.ViewModel
         {
             ConfigureRoutes();
 
-            var hubConnection = new HubConnection("http://10.1.100.33:8081");
+            var hubConnection = new HubConnection("http://10.1.194.178:8081");
 
             serverHubProxy = hubConnection.CreateHubProxy(Constants.HUBNAME);
             hubConnection.Start().Wait();
