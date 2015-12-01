@@ -13,7 +13,8 @@ namespace SignalRSelfHost
             // use http://*:8080 to bind to all addresses. 
             // See http://msdn.microsoft.com/en-us/library/system.net.httplistener.aspx 
             // for more information.
-            string url = "http://10.1.100.33:8081";
+            // For Testing only: Change to your localhost IP address:
+            string url = "http://10.1.194.178:8081";
             using (WebApp.Start(url))
             {
                 Console.WriteLine("Server running on {0}", url);
